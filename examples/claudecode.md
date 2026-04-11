@@ -71,7 +71,7 @@
     * scope: `Bash(pattern *)`, `Read(path)`, `WebFetch(domain)`, `Skill(name)`
     * mode: {`default`, `acceptEdits`, `plan`, `dontAsk`, `bypassPermissions`}
 * sandboxing: os_level_isolation {`Seatbelt` @ macOS, `bubblewrap` @ Linux}
-    * filesystem_sandbox: cwd_write_only, global_read_restricted
+    * filesystem_sandbox: {cwd_write_only, global_read_restricted}
     * network_sandbox: domain_allowlist + proxy_server
 * managed_settings: it_policy_enforcement
     * precedence: managed > cli_flag > `local` > `project` > `user`
@@ -80,25 +80,25 @@
 
 ## INFRASTRUCTURE_AND_DEPLOYMENT
 * auth_methods: {`claude.ai_oauth`, `api_key`, `IAM_role`, `WIF`, `Entra_ID`}
-* credential_management: `macOS_keychain` | encrypted_json | `apiKeyHelper`
+* credential_management: {`macOS_keychain` | encrypted_json | `apiKeyHelper`}
 * ci_cd_integration:
     * github_actions: `claude-code-action` + `@claude_mention` -> automation_mode
     * gitlab_ci: `image: node` + `gitlab-mcp-server` -> `MR_automation`
 * monitoring: `OpenTelemetry` [`OTel`] -> metrics + events
-    * metrics: cost, tokens, lines_of_code, active_time
-    * events: user_prompt, tool_result, api_request [redactable]
+    * metrics: {cost, tokens, lines_of_code, active_time}
+    * events: {user_prompt, tool_result, api_request [redactable]}
 
 ## INTERFACE_SPECIFICS
-* cli_features: `!bash_shortcut`, reverse_search [Ctrl+R], vim_mode, statusline_script
-* desktop_features: visual_diff, live_preview, parallel_session_sidebar, scheduled_tasks
-* vs_code_features: inline_diff, editor_selection_context, plan_markdown_doc, `@terminal_output`
-* web_interface: remote_task_execution, cloud_vm_persistance, mobile_sync
+* cli_features: {`!bash_shortcut`, reverse_search [Ctrl+R], vim_mode, statusline_script}
+* desktop_features: {visual_diff, live_preview, parallel_session_sidebar, scheduled_tasks}
+* vs_code_features: {inline_diff, editor_selection_context, plan_markdown_doc, `@terminal_output`}
+* web_interface: {remote_task_execution, cloud_vm_persistance, mobile_sync}
 * remote_control: local_process + web_ui_tunnel -> no_cloud_storage
 
 ## MODEL_SPECIFICATIONS
-* OPUS_4_6: frontier_reasoning, adaptive_thinking, 1m_context, fast_mode_capable
-* SONNET_4_6: balanced_performance, coding_standard, 1m_context
-* HAIKU_4_5: low_latency, cost_optimized, background_orchestration
+* OPUS_4_6: {frontier_reasoning, adaptive_thinking, 1m_context, fast_mode_capable}
+* SONNET_4_6: {balanced_performance, coding_standard, 1m_context}
+* HAIKU_4_5: {low_latency, cost_optimized, background_orchestration}
 * fast_mode: OPUS_4_6 + high_price => 2.5x_speed
 
 ## SYSTEM_CONSTANTS

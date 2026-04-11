@@ -17,27 +17,27 @@ license: MIT
 * `G_SERVICE` == {`gmail`, `calendar`, `classroom`, `drive`, `docs`, `contacts`, `tasks`, `sheets`, `people`, `groups`}
 
 ### GLOBAL_FLAGS
-* `--color` : {`auto`, `always`, `never`} [default: `auto`]
-* `--json` : `bool` -> force `OUTPUT_FORMAT` == `json`
-* `--plain` : `bool` -> force `OUTPUT_FORMAT` == `plain` [tsv]
-* `--force` : `bool` -> skip_destructive_confirmations
-* `--no-input` : `bool` -> fail_if_prompt_required
-* `--version` : `bool`
-* `--client` : `string` -> select_oauth_client
-* `--out` | `--output` : `path`
-* `--out-dir` | `--output-dir` : `path`
+* `--color`: {`auto`, `always`, `never`} [default: `auto`]
+* `--json`: `bool` -> force `OUTPUT_FORMAT` == `json`
+* `--plain`: `bool` -> force `OUTPUT_FORMAT` == `plain` [tsv]
+* `--force`: `bool` -> skip_destructive_confirmations
+* `--no-input`: `bool` -> fail_if_prompt_required
+* `--version`: `bool`
+* `--client`: `string` -> select_oauth_client
+* `--out` | `--output`: `path`
+* `--out-dir` | `--output-dir`: `path`
 
 ### ENV_VARS
-* `GOG_COLOR` : {`auto`, `always`, `never`}
-* `GOG_JSON` : `1`
-* `GOG_PLAIN` : `1`
-* `GOG_ACCOUNT` : `email` | `alias`
-* `GOG_CLIENT` : `string` -> override `config.json:account_clients`
-* `GOG_KEYRING_PASSWORD` : `string`
-* `GOG_KEYRING_BACKEND` : {`auto`, `keychain`, `file`}
-* `GOG_TIMEZONE` : `IANA_NAME` | `UTC` | `local`
-* `GOG_ENABLE_COMMANDS` : `csv` [e.g., `calendar,tasks`]
-* `GOG_CALENDAR_WEEKDAY` : `1` -> defaults `--weekday`
+* `GOG_COLOR`: {`auto`, `always`, `never`}
+* `GOG_JSON`: `1`
+* `GOG_PLAIN`: `1`
+* `GOG_ACCOUNT`: `email` | `alias`
+* `GOG_CLIENT`: `string` -> override `config.json:account_clients`
+* `GOG_KEYRING_PASSWORD`: `string`
+* `GOG_KEYRING_BACKEND`: {`auto`, `keychain`, `file`}
+* `GOG_TIMEZONE`: `IANA_NAME` | `UTC` | `local`
+* `GOG_ENABLE_COMMANDS`: `csv` [e.g., `calendar,tasks`]
+* `GOG_CALENDAR_WEEKDAY`: `1` -> defaults `--weekday`
 
 ## STATE_AND_CONFIG
 
@@ -45,11 +45,11 @@ license: MIT
 * path == `$(os.UserConfigDir())/gogcli/config.json`
 * format == `JSON5`
 * keys:
-  * `keyring_backend` : {`auto`, `keychain`, `file`}
-  * `default_timezone` : `string`
-  * `account_aliases` : `map[string]string`
-  * `account_clients` : `map[string]string`
-  * `client_domains` : `map[string]string`
+  * `keyring_backend`: {`auto`, `keychain`, `file`}
+  * `default_timezone`: `string`
+  * `account_aliases`: `map[string]string`
+  * `account_clients`: `map[string]string`
+  * `client_domains`: `map[string]string`
 
 ### CREDENTIALS
 * path_default == `$(os.UserConfigDir())/gogcli/credentials.json`
@@ -59,19 +59,19 @@ license: MIT
 ### INTERNAL_STATE
 * `gmail_watch` == `$(os.UserConfigDir())/gogcli/state/gmail-watch/<account>.json`
   * schema:
-    * `account` : `string`
-    * `topic` : `string`
-    * `labels` : `[]string`
-    * `historyId` : `string`
-    * `expirationMs` : `int`
-    * `providerExpirationMs` : `int`
-    * `renewAfterMs` : `int`
-    * `updatedAtMs` : `int`
-    * `hook` : `struct`
-      * `url` : `string`
-      * `token` : `string`
-      * `includeBody` : `bool`
-      * `maxBytes` : `int`
+    * `account`: `string`
+    * `topic`: `string`
+    * `labels`: `[]string`
+    * `historyId`: `string`
+    * `expirationMs`: `int`
+    * `providerExpirationMs`: `int`
+    * `renewAfterMs`: `int`
+    * `updatedAtMs`: `int`
+    * `hook`: `struct`
+      * `url`: `string`
+      * `token`: `string`
+      * `includeBody`: `bool`
+      * `maxBytes`: `int`
 
 ## COMMAND_SURFACE
 
@@ -90,19 +90,19 @@ license: MIT
 * `credentials` -> `[<credentials.json|->]`
 * `credentials list`
 * `add` -> `<email>`
-  * `--services` : {`user`, `all`, `G_SERVICE`...}
-  * `--readonly` : `bool`
-  * `--drive-scope` : {`full`, `readonly`, `file`}
-  * `--gmail-scope` : {`full`, `readonly`}
-  * `--extra-scopes` : `csv`
-  * `--manual` : `bool`
-  * `--remote` : `bool`
-  * `--step` : {`1`, `2`}
-  * `--auth-url` : `url`
-  * `--listen-addr` : `host[:port]`
-  * `--redirect-host` : `host`
-  * `--timeout` : `DURATION`
-  * `--force-consent` : `bool`
+  * `--services`: {`user`, `all`, `G_SERVICE`...}
+  * `--readonly`: `bool`
+  * `--drive-scope`: {`full`, `readonly`, `file`}
+  * `--gmail-scope`: {`full`, `readonly`}
+  * `--extra-scopes`: `csv`
+  * `--manual`: `bool`
+  * `--remote`: `bool`
+  * `--step`: {`1`, `2`}
+  * `--auth-url`: `url`
+  * `--listen-addr`: `host[:port]`
+  * `--redirect-host`: `host`
+  * `--timeout`: `DURATION`
+  * `--force-consent`: `bool`
 * `services` -> `[--markdown]`
 * `manage` -> `[--services ...] [--listen-addr ...] [--redirect-host ...]`
 * `keep` -> `<email> --key <service-account.json>`
@@ -135,11 +135,11 @@ license: MIT
 
 ### `gog docs`
 * `sed` -> `<DOC_ID> [<expression>]`
-  * `-f` : `file` -> read_expressions
-  * `-p` : `bool` -> paste_mode
-  * `--dry-run` | `-n` : `bool`
-  * `-a` : `account`
-  * `--tab` : `string` -> target_sheet
+  * `-f`: `file` -> read_expressions
+  * `-p`: `bool` -> paste_mode
+  * `--dry-run` | `-n`: `bool`
+  * `-a`: `account`
+  * `--tab`: `string` -> target_sheet
 * `clear` -> `<DOC_ID>`
 * `edit` -> `<DOC_ID>`
 * `get` -> `<DOC_ID>`
@@ -147,23 +147,23 @@ license: MIT
 * `structure` -> `<DOC_ID> [--tab name]`
 * `cat` -> `<DOC_ID> [-N]`
 * `export` -> `<DOC_ID>`
-  * `--format` : {`pdf`, `docx`, `txt`, `md`, `html`}
-  * `--out` : `path`
+  * `--format`: {`pdf`, `docx`, `txt`, `md`, `html`}
+  * `--out`: `path`
 
 ### `gog slides`
 * `create-from-template` -> `<templateId> <title>`
-  * `--replace` : `KV` -> e.g., `key=value`
-  * `--replacements` : `file.json`
-  * `--exact` : `bool` -> disable `{{}}` wrapping
-  * `--parent` : `folderId`
+  * `--replace`: `KV` -> e.g., `key=value`
+  * `--replacements`: `file.json`
+  * `--exact`: `bool` -> disable `{{}}` wrapping
+  * `--parent`: `folderId`
 * `export` -> `<presentationId>`
-  * `--format` : {`pdf`, `pptx`}
-  * `--out` : `path`
+  * `--format`: {`pdf`, `pptx`}
+  * `--out`: `path`
 
 ### `gog sheets`
 * `export` -> `<spreadsheetId>`
-  * `--format` : {`pdf`, `xlsx`, `csv`}
-  * `--out` : `path`
+  * `--format`: {`pdf`, `xlsx`, `csv`}
+  * `--out`: `path`
 
 ### `gog calendar`
 * `calendars` -> `[--max N] [--json]`
@@ -192,17 +192,17 @@ license: MIT
   * `rename` -> `<labelIdOrName> <newName>`
   * `modify` -> `<threadIds...> [--add ...] [--remove ...]`
 * `send`
-  * `--to` : `csv_emails`
-  * `--subject` : `string`
-  * `--body` : `string`
-  * `--body-html` : `string`
-  * `--cc` : `csv_emails`
-  * `--bcc` : `csv_emails`
-  * `--reply-to-message-id` : `string`
-  * `--reply-to` : `email`
-  * `--attach` : `path...`
-  * `--track` : `bool` -> inject_tracking_pixel
-  * `--track-split` : `bool` -> send_separately_per_recipient
+  * `--to`: `csv_emails`
+  * `--subject`: `string`
+  * `--body`: `string`
+  * `--body-html`: `string`
+  * `--cc`: `csv_emails`
+  * `--bcc`: `csv_emails`
+  * `--reply-to-message-id`: `string`
+  * `--reply-to`: `email`
+  * `--attach`: `path...`
+  * `--track`: `bool` -> inject_tracking_pixel
+  * `--track-split`: `bool` -> send_separately_per_recipient
 * `drafts`
   * `list` -> `[--max N] [--page TOKEN]`
   * `get` -> `<draftId> [--download]`
@@ -216,27 +216,27 @@ license: MIT
   * `renew` -> `[--ttl <sec|DURATION>]`
   * `stop`
   * `serve`
-    * `--bind` : `ip` [default: `127.0.0.1`]
-    * `--port` : `int` [default: `8788`]
-    * `--path` : `string` [default: `/gmail-pubsub`]
-    * `--verify-oidc` : `bool`
-    * `--oidc-email` : `email`
-    * `--oidc-audience` : `string`
-    * `--token` : `string`
-    * `--hook-url` : `url`
-    * `--hook-token` : `string`
-    * `--fetch-delay` : `DURATION` [default: `3s`]
-    * `--include-body` : `bool`
-    * `--max-bytes` : `int` [default: `20000`]
-    * `--exclude-labels` : `csv` [default: `SPAM,TRASH`]
-    * `--history-types` : `csv` {`messageAdded`, `messageDeleted`, `labelAdded`, `labelRemoved`} [default: `messageAdded`]
-    * `--save-hook` : `bool`
+    * `--bind`: `ip` [default: `127.0.0.1`]
+    * `--port`: `int` [default: `8788`]
+    * `--path`: `string` [default: `/gmail-pubsub`]
+    * `--verify-oidc`: `bool`
+    * `--oidc-email`: `email`
+    * `--oidc-audience`: `string`
+    * `--token`: `string`
+    * `--hook-url`: `url`
+    * `--hook-token`: `string`
+    * `--fetch-delay`: `DURATION` [default: `3s`]
+    * `--include-body`: `bool`
+    * `--max-bytes`: `int` [default: `20000`]
+    * `--exclude-labels`: `csv` [default: `SPAM,TRASH`]
+    * `--history-types`: `csv` {`messageAdded`, `messageDeleted`, `labelAdded`, `labelRemoved`} [default: `messageAdded`]
+    * `--save-hook`: `bool`
 * `history` -> `--since <historyId> [--max N] [--page TOKEN]`
 * `autoreply` -> `<query>`
-  * `--body-file` : `path`
-  * `--label` : `string` -> dedupe_label
-  * `--archive` : `bool`
-  * `--mark-read` : `bool`
+  * `--body-file`: `path`
+  * `--label`: `string` -> dedupe_label
+  * `--archive`: `bool`
+  * `--mark-read`: `bool`
 * `track`
   * `setup` -> `--worker-url <url> [--worker-name <name>] [--db-name <name>] [--worker-dir <path>] [--deploy]`
   * `opens` -> `[<tracking_id> | --to <email>]`
@@ -273,15 +273,15 @@ license: MIT
 * `get` -> `<people/...|email> [--json]`
 * `create` -> `--given NAME [--family NAME] [--email addr] [--phone num] [--relation type=person]`
 * `update` -> `<people/...>`
-  * `--given` : `string`
-  * `--family` : `string`
-  * `--email` : `email`
-  * `--phone` : `string`
-  * `--birthday` : `DATE`
-  * `--notes` : `string`
-  * `--relation` : `string`
-  * `--from-file` : `path` | `-` -> update_from_json
-  * `--ignore-etag` : `bool` -> force_overwrite
+  * `--given`: `string`
+  * `--family`: `string`
+  * `--email`: `email`
+  * `--phone`: `string`
+  * `--birthday`: `DATE`
+  * `--notes`: `string`
+  * `--relation`: `string`
+  * `--from-file`: `path` | `-` -> update_from_json
+  * `--ignore-etag`: `bool` -> force_overwrite
 * `delete` -> `<people/...>`
 * `directory list` -> `[--max N] [--page TOKEN]`
 * `directory search` -> `<query> [--max N] [--page TOKEN]`
@@ -364,33 +364,33 @@ license: MIT
 ### `SEDMAT` [Docs Formatting]
 * syntax: `s/pattern/replacement/flags`
 * inline_flags [brace_syntax]:
-  * `{b}` : `bold`
-  * `{i}` : `italic`
-  * `{_}` : `underline`
-  * `{-}` : `strikethrough`
-  * `{#}` : `code`
-  * `{^}` : `superscript`
-  * `{,}` : `subscript`
-  * `{w}` : `smallcaps`
+  * `{b}`: `bold`
+  * `{i}`: `italic`
+  * `{_}`: `underline`
+  * `{-}`: `strikethrough`
+  * `{#}`: `code`
+  * `{^}`: `superscript`
+  * `{,}`: `subscript`
+  * `{w}`: `smallcaps`
 * properties [brace_syntax]:
-  * `{c=val}` : `color`
-  * `{z=val}` : `bg`
-  * `{f=val}` : `font`
-  * `{s=val}` : `size`
-  * `{u=val}` : `url`
-  * `{h=val}` : `heading` {1-6, t, s}
-  * `{a=val}` : `align` {left, center, right}
-  * `{l=val}` : `leading`
-  * `{n=val}` : `indent`
-  * `{o=val}` : `opacity`
-  * `{k=val}` : `kerning`
-  * `{p=b,a}` : `spacing` [before,after]
+  * `{c=val}`: `color`
+  * `{z=val}`: `bg`
+  * `{f=val}`: `font`
+  * `{s=val}`: `size`
+  * `{u=val}`: `url`
+  * `{h=val}`: `heading` {1-6, t, s}
+  * `{a=val}`: `align` {left, center, right}
+  * `{l=val}`: `leading`
+  * `{n=val}`: `indent`
+  * `{o=val}`: `opacity`
+  * `{k=val}`: `kerning`
+  * `{p=b,a}`: `spacing` [before,after]
 * commands:
-  * `d` : `delete` -> `N,Md`
-  * `a` : `append` -> `a/pattern/text/`
-  * `i` : `insert` -> `i/pattern/text/`
-  * `y` : `transliterate`
+  * `d`: `delete` -> `N,Md`
+  * `a`: `append` -> `a/pattern/text/`
+  * `i`: `insert` -> `i/pattern/text/`
+  * `y`: `transliterate`
 * paragraphs:
-  * `N` : `target_line_N`
-  * `N,M` : `range`
-  * `$` : `last`
+  * `N`: `target_line_N`
+  * `N,M`: `range`
+  * `$`: `last`

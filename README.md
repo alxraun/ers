@@ -312,7 +312,7 @@ public class InheritedContextManager(WidgetTree widgetTree)
 
 </details>
 
-- This form of semantic compression enables the LLM to understand code logic without reading the full implementation.
+- This form of semantic compression enables the LLM to understand code intent without reading the full implementation.
 - An ERS comment should only contain information that is difficult to infer from the function signature but is essential to the function’s context.
 - Thus, the combination of an ERS comment and a function signature provides a full semantic reconstruction of the code.
 
@@ -397,7 +397,7 @@ public class InheritedContextManager(WidgetTree widgetTree)
     * scope: `Bash(pattern *)`, `Read(path)`, `WebFetch(domain)`, `Skill(name)`
     * mode: {`default`, `acceptEdits`, `plan`, `dontAsk`, `bypassPermissions`}
 * sandboxing: os_level_isolation {`Seatbelt` @ macOS, `bubblewrap` @ Linux}
-    * filesystem_sandbox: cwd_write_only, global_read_restricted
+    * filesystem_sandbox: {cwd_write_only, global_read_restricted}
     * network_sandbox: domain_allowlist + proxy_server
 * managed_settings: it_policy_enforcement
     * precedence: managed > cli_flag > `local` > `project` > `user`
@@ -406,25 +406,25 @@ public class InheritedContextManager(WidgetTree widgetTree)
 
 ## INFRASTRUCTURE_AND_DEPLOYMENT
 * auth_methods: {`claude.ai_oauth`, `api_key`, `IAM_role`, `WIF`, `Entra_ID`}
-* credential_management: `macOS_keychain` | encrypted_json | `apiKeyHelper`
+* credential_management: {`macOS_keychain` | encrypted_json | `apiKeyHelper`}
 * ci_cd_integration:
     * github_actions: `claude-code-action` + `@claude_mention` -> automation_mode
     * gitlab_ci: `image: node` + `gitlab-mcp-server` -> `MR_automation`
 * monitoring: `OpenTelemetry` [`OTel`] -> metrics + events
-    * metrics: cost, tokens, lines_of_code, active_time
-    * events: user_prompt, tool_result, api_request [redactable]
+    * metrics: {cost, tokens, lines_of_code, active_time}
+    * events: {user_prompt, tool_result, api_request [redactable]}
 
 ## INTERFACE_SPECIFICS
-* cli_features: `!bash_shortcut`, reverse_search [Ctrl+R], vim_mode, statusline_script
-* desktop_features: visual_diff, live_preview, parallel_session_sidebar, scheduled_tasks
-* vs_code_features: inline_diff, editor_selection_context, plan_markdown_doc, `@terminal_output`
-* web_interface: remote_task_execution, cloud_vm_persistance, mobile_sync
+* cli_features: {`!bash_shortcut`, reverse_search [Ctrl+R], vim_mode, statusline_script}
+* desktop_features: {visual_diff, live_preview, parallel_session_sidebar, scheduled_tasks}
+* vs_code_features: {inline_diff, editor_selection_context, plan_markdown_doc, `@terminal_output`}
+* web_interface: {remote_task_execution, cloud_vm_persistance, mobile_sync}
 * remote_control: local_process + web_ui_tunnel -> no_cloud_storage
 
 ## MODEL_SPECIFICATIONS
-* OPUS_4_6: frontier_reasoning, adaptive_thinking, 1m_context, fast_mode_capable
-* SONNET_4_6: balanced_performance, coding_standard, 1m_context
-* HAIKU_4_5: low_latency, cost_optimized, background_orchestration
+* OPUS_4_6: {frontier_reasoning, adaptive_thinking, 1m_context, fast_mode_capable}
+* SONNET_4_6: {balanced_performance, coding_standard, 1m_context}
+* HAIKU_4_5: {low_latency, cost_optimized, background_orchestration}
 * fast_mode: OPUS_4_6 + high_price => 2.5x_speed
 
 ## SYSTEM_CONSTANTS
@@ -442,13 +442,13 @@ public class InheritedContextManager(WidgetTree widgetTree)
 
 ## Future
 
-The current [examples/ers.md](./examples/ers.md) prompt serves as a few-shot for generated artifacts, so every word needs to be reviewed. The current version was written manually without automatic optimizations. In particular, it is needed to change, add what is missing, and remove the redundant in `## HEURISTICS`.
+Since the current [examples/ers.md](./examples/ers.md) prompt serves as a few-shot for generated artifacts, every word requires meticulous review. ERS is an early-stage conceptual prototype - functional yet unoptimized and untested. The current version was written manually without automatic optimizations; in particular, it is necessary to refine `## HEURISTICS` and evolve `## SYNTAX` by adding essentials and removing redundancies.
 
 ## Sources & Inspiration
 
 ERS grew out of personal intuition and a synthesis of ideas from the following sources:
 
-1. Edward de Bono’s books for a general audience (*I Am Right, You Are Wrong*). His description of self-organizing systems shaped much of my intuition; for instance, ERS naturally resonates with concepts like "sensitization" and "table-top logic". My systematization of these ideas: [alxraun/artifical-latheral-thinking/self-organizing-system.md](https://github.com/alxraun/artifical-latheral-thinking/self-organizing-system.md).
+1. Edward de Bono’s books for a general audience (*I Am Right, You Are Wrong*). His description of self-organizing systems shaped much of my intuition; for instance, ERS naturally resonates with concepts like "sensitization" and "table-top logic". My systematization of these ideas: [alxraun/artifical-latheral-thinking/self-organizing-system.md](https://github.com/alxraun/artifical-lateral-thinking/blob/main/self-organizing-system.md).
 2. The School of Wizardry with its Grace Archmage — provided numerous core insights and helped synthesize fragmented knowledge into a cohesive mental model.
 3. Various papers that served as sources of information regarding the behavior and internal logic of language models. See [ATTRIBUTIONS.md](./ATTRIBUTIONS.md) for the full list.
 4. See more at [ATTRIBUTIONS.md](./ATTRIBUTIONS.md).
