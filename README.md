@@ -1,6 +1,6 @@
 # Entities, Relations, Structure
 
-ERS is an LLM-native, semantic notation for Human-LLM and LLM-LLM systems, optimized for token efficiency and performance.
+ERS is an LLM-native, semantic notation for Human-LLM and LLM-LLM systems, optimized for token efficiency and performance. This repository presents ERS as a working early-stage concept ready for practical application.
 
 ## Definition
 
@@ -120,16 +120,16 @@ Here is the definition of ERS written in ERS notation:
 
 ## Why It Works
 
-- Grouping words with `snake_case` allows the LLM to process a composite entity as a single semantic variable, focusing its attention by minimizing the syntactic noise between individual words.
-- Replacing natural language grammar with relational operators (`->`, `==`, `!=`) forms directed edges in the attention graph, clearing the context of syntactic noise.
+- Grouping words with `snake_case` allows the LLM to process a composite entity as a single unit of meaning, focusing its attention by minimizing the syntactic noise between individual words.
+- Replacing natural language grammar with relational operators (`->`, `==`, `!=`) forms direct semantic connections, clearing the context of syntactic noise.
 - Markdown hierarchy creates scopes, delineating cohesive semantic blocks while enabling the cross-links that stitch the artifact into a unified whole.
-- Mentioning a entity across different contexts accumulates its semantic weight, binding blocks into a unified system.
+- Mentioning a entity across different contexts reinforces its meaning, binding blocks into a unified system.
 - High connectivity and cross-links density create a "semantic crystal" effect where concepts mutually support each other, reinforcing context retention.
-- The LLM receives a ready-made topology of meanings, which it adopts as an axiom, bypassing structural reconstruction.
+- The LLM adopts a ready-made structure of meanings, aligning with a graph-like format more natural than prose.
 
 ## Observed Effects
 
-- Using ERS puts the model into a "code-execution" mode: the arrangement acts as a firm contract that is followed literally, preventing the model from softening or generalizing the result.
+- Using ERS puts the model into a "code-execution" mode: the structure acts as a firm contract, binding the model to both its letter and spirit.
 - Representing knowledge as discrete `snake_case` blocks with explicit links helps the model more effectively align different pieces of information, uncovering hidden logic and insights often lost in the volume of normal text.
 
 ## Use Cases
@@ -284,7 +284,7 @@ The dominant sequence transduction models are based on complex recurrent or conv
 
 </details>
 
-- Code symbols in ERS act as semantic anchors: seeing them in the code triggers knowledge integration, allowing the agent to understand the current logic in the context of the entire system.
+- Code symbols in ERS act as semantic anchors: seeing them in the code allows the agent to understand the current logic in the context of the entire system.
 - This ERS serves as a unified mental model - being simultaneously both explanation and reference.
 
 ### Code as Documentation
@@ -313,8 +313,8 @@ public class InheritedContextManager(WidgetTree widgetTree)
 </details>
 
 - This form of semantic compression enables the LLM to understand code intent without reading the full implementation.
-- An ERS comment should only contain information that is difficult to infer from the function signature but is essential to the function’s context.
-- Thus, the combination of an ERS comment and a function signature provides a full semantic reconstruction of the code.
+- An ERS comment should only contain information that is difficult to understand from the function signature but is essential to the function’s context.
+- Thus, the combination of an ERS comment and a function signature provides the full meaning of the implementation.
 
 ### Mastering New Knowledge
 
@@ -448,7 +448,7 @@ Since the current [examples/ers.md](./examples/ers.md) prompt serves as a few-sh
 
 ERS grew out of personal intuition and a synthesis of ideas from the following sources:
 
-1. Edward de Bono’s books for a general audience (*I Am Right, You Are Wrong*). His description of self-organizing systems shaped much of my intuition; for instance, ERS naturally resonates with concepts like "sensitization" and "table-top logic". My systematization of these ideas: [alxraun/artifical-latheral-thinking/self-organizing-system.md](https://github.com/alxraun/artifical-lateral-thinking/blob/main/self-organizing-system.md).
+1. Edward de Bono’s books for a general audience (*I Am Right, You Are Wrong*). His description of self-organizing systems shaped much of my intuition; for instance, ERS naturally resonates with concepts like "sensitization" and "table-top logic" (constructed system). My systematization of these ideas: [alxraun/artifical-latheral-thinking/self-organizing-system.md](https://github.com/alxraun/artifical-lateral-thinking/blob/main/self-organizing-system.md).
 2. The School of Wizardry with its Grace Archmage — provided numerous core insights and helped synthesize fragmented knowledge into a cohesive mental model.
 3. Various papers that served as sources of information regarding the behavior and internal logic of language models. See [ATTRIBUTIONS.md](./ATTRIBUTIONS.md) for the full list.
 4. See more at [ATTRIBUTIONS.md](./ATTRIBUTIONS.md).
