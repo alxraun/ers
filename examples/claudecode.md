@@ -76,7 +76,7 @@
 * managed_settings: it_policy_enforcement
     * precedence: managed > cli_flag > `local` > `project` > `user`
     * delivery: {remote_server, `plist`, `registry`, `managed-settings.json`}
-* `ZDR` [Zero Data Retention]: enterprise_only -> no_log_storage -> feature_loss {web_sessions, remote_sessions, feedback}
+* `ZDR` [`Zero Data Retention`]: enterprise_only -> no_log_storage -> feature_loss {web_sessions, remote_sessions, feedback}
 
 ## INFRASTRUCTURE_AND_DEPLOYMENT
 * auth_methods: {`claude.ai_oauth`, `api_key`, `IAM_role`, `WIF`, `Entra_ID`}
@@ -89,7 +89,7 @@
     * events: {user_prompt, tool_result, api_request [redactable]}
 
 ## INTERFACE_SPECIFICS
-* cli_features: {`!bash_shortcut`, reverse_search [Ctrl+R], vim_mode, statusline_script}
+* cli_features: {`!bash_shortcut`, reverse_search [`Ctrl+R`], vim_mode, statusline_script}
 * desktop_features: {visual_diff, live_preview, parallel_session_sidebar, scheduled_tasks}
 * vs_code_features: {inline_diff, editor_selection_context, plan_markdown_doc, `@terminal_output`}
 * web_interface: {remote_task_execution, cloud_vm_persistance, mobile_sync}
@@ -105,4 +105,4 @@
 * MAX_THINKING_TOKENS: 31999
 * AUTO_COMPACT_THRESHOLD: ~ `95%`
 * CLEANUP_PERIOD: 30_days
-* TPM_RPM_RATIO: organization_scaled [~200k_TPM : 5_RPM @ small_team]
+* TPM_RPM_RATIO: organization_scaled [~200k_tpm : 5_rpm @ small_team]

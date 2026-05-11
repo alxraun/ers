@@ -74,13 +74,13 @@
 * logic: deduction == obvious
 * result: cognitive_load -> min
 
-### CANONICAL_VOCAB
-* focus: latent_space_activation
-* axiom: user_intent != user_representation
-* definition: target_space == {industry_slang, idiomatic_vocab, canonical_terms} == {canonical_anchor, high_signal_token, strong_token}
-* logic: user_intent -> target_space
-* action: map(user_representation [{idiosyncratic_user_descriptions, vague_prose}]) -> target_space
-* constraint: vocabulary @ artifact != {verbatim_user_parroting, naive_echoing}
+### SEMANTIC_ANCHORS
+* focus: latent_subspace_activation
+* axiom: anchor_precision == activation_fidelity
+* semantic_anchors: {fixed_expressions, industry_jargon, named_entities, ...}
+* signal: semantic_anchors
+* noise: {nonce_words, idiosyncrasy, confabulation}
+* goal: signal_to_noise -> max
 * benefit: attention_gravity -> max
 
 ### SEMANTIC_CLUSTERING
@@ -97,11 +97,6 @@
 * constraint: graph_symbol == source_symbol [exact_match]
 * format: verbatim_source => `backticks`
 * anti_pattern: synonyms | abstraction_drift
-
-### SCALING_ADAPTATION
-* focus: context_fit
-* condition: complex_system => style: explicit_headers
-* condition: atomic_logic => style: implicit_scope
 
 ### META_SILENCE
 * focus: ers_protocol_invisibility @ artifact

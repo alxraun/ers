@@ -27,17 +27,17 @@ Here is the definition of ERS written in ERS notation:
   * `==`: {identity, assertion, equality}
   * `!=`: {distinction, conflict, inequality}
   * `!`: {negation, logical_not}
-  * `<` | `>`: {comparison, magnitude, priority}
-  * `->`: {flow, transition, transformation}
+  * {`<` | `>`}: {comparison, magnitude, priority}
+  * {`->` | `<-`}: {flow, transition, transformation}
   * `=>`: {implication, consequence, if_then}
   * `+`: {composition, aggregation, mixin}
   * `|`: {alternative, union, choice}
   * `,`: {separator, list_item, and}
   * `:`: {definition, type_of, instance_of}
   * `~`: {analogy, similarity, reference}
-  * `...`: {range, sequence, enumeration}
+  * `...`: {range, enumeration, extrapolation}
   * `?`: {uncertainty, query, nullable, conditional}
-  * `@`: {context, location, decorator}
+  * `@`: {context, location}
   * `[]`: {attribute, filter, modifier}
   * `{}`: {set, state_space, enum}
   * `func()`: {transform_operation, procedural_action, result_derivation}
@@ -71,9 +71,9 @@ Here is the definition of ERS written in ERS notation:
 
 ### RELATIONAL_PRIMACY
 * focus: relational_connectivity
-* hierarchy: edges [relations] > nodes [entities]
+* hierarchy: relations > entities
 * action: static_list -> dynamic_flow
-* operator: {`->`, `=>`} -> max_usage
+* relations: {`->`, `=>`, ...} -> max_usage
 * strategy: cross_scope_linking
 * constraint: link_utility > 0
 
@@ -83,13 +83,13 @@ Here is the definition of ERS written in ERS notation:
 * logic: deduction == obvious
 * result: cognitive_load -> min
 
-### CANONICAL_VOCAB
-* focus: latent_space_activation
-* axiom: user_intent != user_representation
-* definition: target_space == {industry_slang, idiomatic_vocab, canonical_terms} == {canonical_anchor, high_signal_token, strong_token}
-* logic: user_intent -> target_space
-* action: map(user_representation [{idiosyncratic_user_descriptions, vague_prose}]) -> target_space
-* constraint: vocabulary @ artifact != {verbatim_user_parroting, naive_echoing}
+### SEMANTIC_ANCHORS
+* focus: latent_subspace_activation
+* axiom: anchor_precision == activation_fidelity
+* semantic_anchors: {fixed_expressions, industry_jargon, named_entities, ...}
+* signal: semantic_anchors
+* noise: {nonce_words, idiosyncrasy, confabulation}
+* goal: signal_to_noise -> max
 * benefit: attention_gravity -> max
 
 ### SEMANTIC_CLUSTERING
@@ -107,11 +107,6 @@ Here is the definition of ERS written in ERS notation:
 * format: verbatim_source => `backticks`
 * anti_pattern: synonyms | abstraction_drift
 
-### SCALING_ADAPTATION
-* focus: context_fit
-* condition: complex_system => style: explicit_headers
-* condition: atomic_logic => style: implicit_scope
-
 ### META_SILENCE
 * focus: ers_protocol_invisibility @ artifact
 * constraint: {ers_mention, ers_self_reference, ers_meta_talk} @ artifact == forbidden
@@ -122,8 +117,8 @@ Here is the definition of ERS written in ERS notation:
 
 - Grouping words with `snake_case` allows the LLM to process a composite entity as a single unit of meaning, focusing its attention by minimizing the syntactic noise between individual words.
 - Replacing natural language grammar with relational operators (`->`, `==`, `!=`) forms direct semantic connections, clearing the context of syntactic noise.
-- Markdown hierarchy creates scopes, delineating cohesive semantic blocks while enabling the cross-links that stitch the artifact into a unified whole.
-- Mentioning a entity across different contexts reinforces its meaning, binding blocks into a unified system.
+- Markdown hierarchy creates scopes, delineating cohesive semantic blocks.
+- Mentioning an entity across different contexts reinforces its meaning, binding blocks into a unified system.
 - High connectivity and cross-links density create a "semantic crystal" effect where concepts mutually support each other, reinforcing context retention.
 - The LLM adopts a ready-made structure of meanings, aligning with a graph-like format more natural than prose.
 
@@ -141,9 +136,11 @@ Here is the definition of ERS written in ERS notation:
 <summary>Natural language</summary>
 
 ```markdown
-The dominant sequence transduction models are based on complex recurrent or convolutional neural networks in an encoder-decoder configuration. The best performing models also connect the encoder and decoder through an attention mechanism. We propose a new simple network architecture, the Transformer, based solely on attention mechanisms, dispensing with recurrence and convolutions entirely. Experiments on two machine translation tasks show these models to be superior in quality while being more parallelizable and requiring significantly less time to train. Our model achieves 28.4 BLEU on the WMT 2014 English-to-German translation task, improving over the existing best results, including ensembles by over 2 BLEU. On the WMT 2014 English-to-French translation task, our model establishes a new single-model state-of-the-art BLEU score of 41.8 after training for 3.5 days on eight GPUs, a small fraction of the training costs of the best models from the literature. We show that the Transformer generalizes well to other tasks by applying it successfully to English constituency parsing both with large and limited training data.
+The Transformer uses multi-head attention in three different ways:
+* In "encoder-decoder attention" layers, the queries come from the previous decoder layer, and the memory keys and values come from the output of the encoder. This allows every position in the decoder to attend over all positions in the input sequence. This mimics the typical encoder-decoder attention mechanisms in sequence-to-sequence models.
+* The encoder contains self-attention layers. In a self-attention layer all of the keys, values and queries come from the same place, in this case, the output of the previous layer in the encoder. Each position in the encoder can attend to all positions in the previous layer of the encoder.
+* Similarly, self-attention layers in the decoder allow each position in the decoder to attend to all positions in the decoder up to and including that position. We need to prevent leftward information flow in the decoder to preserve the auto-regressive property. We implement this inside of scaled dot-product attention by masking out (setting to `-inf`) all values in the input of the softmax which correspond to illegal connections.
 ```
-
 </details>
 
 - ERS artifacts can be used for injection into the LLM context.
@@ -151,17 +148,38 @@ The dominant sequence transduction models are based on complex recurrent or conv
 <summary>ERS artifact</summary>
 
 ```markdown
-# SEQUENCE_TRANSDUCTION
-* legacy_baseline: {recurrent, convolutional} @ `encoder-decoder` + attention
-* **Transformer**: pure_attention
-  * architecture -> !{recurrence, convolutions}
-  * properties -> {parallelizability -> max, train_time -> min, quality > sota}
-* empirical_validation @ machine_translation:
-  * `WMT 2014 English-to-German` => 28.4 `BLEU` [> best_ensembles + 2]
-  * `WMT 2014 English-to-French` => 41.8 `BLEU` [single_model_sota] @ compute: {3.5_days, 8_GPUs} < legacy_cost
-* generalization -> `English constituency parsing` @ training_data: {large | limited}
+* **encoder_decoder_attention**
+  * `queries` <- previous_decoder_layer
+  * {`keys`, `values`} <- encoder_output
+  * scope: decoder_position -> input_sequence
+  * ~ legacy_seq2seq_attention
+* **encoder_self_attention**
+  * {`queries`, `keys`, `values`} <- previous_encoder_layer
+  * scope: encoder_position -> previous_layer
+* **decoder_self_attention**
+  * {`queries`, `keys`, `values`} <- previous_decoder_layer
+  * scope: decoder_position -> <= current_position
+  * auto_regressive_property => leftward_information_flow == forbidden
+  * mechanism: illegal_connections @ softmax_input -> masked_out
 ```
+</details>
 
+### Prompts
+
+- First 100 tokens:
+<details>
+<summary>Persona</summary>
+
+```markdown
+<START_PERSONA>
+# THOUGHT_PARTNER
+* capabilities: {semantic_translation, logical_crystallization, ...}
+* workflow: long_term_conversation
+* axiom: user_intent: clear_thought != user_representation: {stream_of_thought, nonce_words, idiosyncrasy, confabulation, ...}
+* prefer: {literal_exactness, as_is_descriptions, formal_ontology, ...}
+* avoid: {metaphors, conversational_noise, rhetoric}
+<END_PERSONA>
+```
 </details>
 
 ### Systemic Understanding
@@ -223,7 +241,6 @@ The dominant sequence transduction models are based on complex recurrent or conv
 * `User_App` -> `Syscall` => `VFS`[`fs/`] -> `Block_Layer`[`block/`] -> `Driver`[`drivers/`] -> `HARDWARE`
 * `NIC_Packet` -> `IRQ`[`arch/`] -> `Net_Stack`[`net/`] -> `Socket` -> `User_App`
 ```
-
 </details>
 
 - Then zoom-in to the specific area you are working on:
@@ -281,7 +298,6 @@ The dominant sequence transduction models are based on complex recurrent or conv
 * **Liveness**: `cancel_table` lookup @ `io_uring_cancel_generic`
 * **Integrity**: `io_fail_links` @ `REQ_F_LINK` failure => cancel_chain_propagation
 ```
-
 </details>
 
 - Code symbols in ERS act as semantic anchors: seeing them in the code allows the agent to understand the current logic in the context of the entire system.
@@ -309,12 +325,28 @@ public class InheritedContextManager(WidgetTree widgetTree)
     private void TryReleaseProvider(Widget provider, string propertyName);
 }
 ```
-
 </details>
 
 - This form of semantic compression enables the LLM to understand code intent without reading the full implementation.
 - An ERS comment should only contain information that is difficult to understand from the function signature but is essential to the function’s context.
 - Thus, the combination of an ERS comment and a function signature provides the full meaning of the implementation.
+
+### Code Overview
+
+- Read the intent of the code without getting distracted by implementation details and syntactic noise:
+<details>
+<summary>Overview</summary>
+
+```markdown
+* `generate_cursor_plugin.py`: {task: cursor_mcp_alignment}
+  * `build_cursor_plugin_manifest()` <- `.claude-plugin/plugin.json` + `SKILL.md`
+  * `extract_mcp_from_gemini()` <- `gemini-extension.json` -> `url`
+  * `write_or_check()` -> artifacts: {`.cursor-plugin/plugin.json`, `.mcp.json`}
+* `run_skills_help.py`: {task: validation_execution}
+  * `find_python_files()` @ `../skills`
+  * `run_with_help()` -> `uv run <file> --help` => `SUMMARY` [{success | failure}]
+```
+</details>
 
 ### Mastering New Knowledge
 
@@ -402,7 +434,7 @@ public class InheritedContextManager(WidgetTree widgetTree)
 * managed_settings: it_policy_enforcement
     * precedence: managed > cli_flag > `local` > `project` > `user`
     * delivery: {remote_server, `plist`, `registry`, `managed-settings.json`}
-* `ZDR` [Zero Data Retention]: enterprise_only -> no_log_storage -> feature_loss {web_sessions, remote_sessions, feedback}
+* `ZDR` [`Zero Data Retention`]: enterprise_only -> no_log_storage -> feature_loss {web_sessions, remote_sessions, feedback}
 
 ## INFRASTRUCTURE_AND_DEPLOYMENT
 * auth_methods: {`claude.ai_oauth`, `api_key`, `IAM_role`, `WIF`, `Entra_ID`}
@@ -415,7 +447,7 @@ public class InheritedContextManager(WidgetTree widgetTree)
     * events: {user_prompt, tool_result, api_request [redactable]}
 
 ## INTERFACE_SPECIFICS
-* cli_features: {`!bash_shortcut`, reverse_search [Ctrl+R], vim_mode, statusline_script}
+* cli_features: {`!bash_shortcut`, reverse_search [`Ctrl+R`], vim_mode, statusline_script}
 * desktop_features: {visual_diff, live_preview, parallel_session_sidebar, scheduled_tasks}
 * vs_code_features: {inline_diff, editor_selection_context, plan_markdown_doc, `@terminal_output`}
 * web_interface: {remote_task_execution, cloud_vm_persistance, mobile_sync}
@@ -431,18 +463,21 @@ public class InheritedContextManager(WidgetTree widgetTree)
 * MAX_THINKING_TOKENS: 31999
 * AUTO_COMPACT_THRESHOLD: ~ `95%`
 * CLEANUP_PERIOD: 30_days
-* TPM_RPM_RATIO: organization_scaled [~200k_TPM : 5_RPM @ small_team]
+* TPM_RPM_RATIO: organization_scaled [~200k_tpm : 5_rpm @ small_team]
 ```
-
 </details>
 
 ### Other
 
-- ERS applications encompass, but are not restricted to: agentic memory systems, RAG, clean room design, context compression and knowledge bases.
+- ERS applications encompass, but are not restricted to: memory systems, RAG, spec driven development, clean room design, context compression and knowledge bases.
+
+## Philosophy
+
+Lacking both the redundancy inherent in natural languages and the formal semantics and deterministic executability of formal languages, ERS is a semantic notation for semantic and cognitive processors. Describing complex systems using paragraphs of natural language introduces unnecessary cognitive friction. ERS is well-suited for formalizing everything above the level of source code: architectures, business logic, mental models, and system contracts.
 
 ## Future
 
-Since the current [examples/ers.md](./examples/ers.md) prompt serves as a few-shot for generated artifacts, every word requires meticulous review. ERS is an early-stage conceptual prototype - functional yet unoptimized and untested. The current version was written manually without automatic optimizations; in particular, it is necessary to refine `## HEURISTICS` and evolve `## SYNTAX` by adding essentials and removing redundancies.
+Since the current [examples/ers.md](./examples/ers.md) prompt serves as a few-shot example for generated artifacts, every word requires meticulous review. ERS is an early-stage conceptual prototype; the current version was written manually without automatic optimizations.
 
 ## Sources & Inspiration
 
@@ -451,4 +486,3 @@ ERS grew out of personal intuition and a synthesis of ideas from the following s
 1. Edward de Bono’s books for a general audience (*I Am Right, You Are Wrong*). His description of self-organizing systems shaped much of my intuition; for instance, ERS naturally resonates with concepts like "sensitization" and "table-top logic" (constructed system). My systematization of these ideas: [alxraun/artifical-latheral-thinking/self-organizing-system.md](https://github.com/alxraun/artifical-lateral-thinking/blob/main/self-organizing-system.md).
 2. The School of Wizardry with its Grace Archmage — provided numerous core insights and helped synthesize fragmented knowledge into a cohesive mental model.
 3. Various papers that served as sources of information regarding the behavior and internal logic of language models. See [ATTRIBUTIONS.md](./ATTRIBUTIONS.md) for the full list.
-4. See more at [ATTRIBUTIONS.md](./ATTRIBUTIONS.md).
