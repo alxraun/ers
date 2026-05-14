@@ -39,5 +39,5 @@
 ### SYMBOLIC_FIDELITY
 * focus: source_isomorphism
 * invariant: code_symbol => {verbatim, exact}
-* format: code_symbol => `backticks`
+* format: code_symbol => backticks
 * benefit: zero_hallucination

@@ -1,10 +1,14 @@
 # Entities, Relations, Structure
 
-ERS is an LLM-native, semantic notation for Human-LLM and LLM-LLM systems, optimized for token efficiency and performance. This repository presents ERS as a working early-stage concept ready for practical application.
+ERS is a semantic notation for Human-LLM and LLM-LLM systems, designed for token efficiency and high semantic retention - general-purpose, prompt-based, no model training, and no special tokens required.
+
+In a preliminary [QA benchmark](./benchmarks/ers-poc/README.md), compressing context by 72% with ERS allowed models from 4B to 20B to retain 89-94% of their original answer accuracy compared to the source text.
+
+This repository presents ERS as a working early-stage concept with practical applications.
 
 ## Definition
 
-Here is the definition of ERS written in ERS notation:
+Here is prompt for LLMs, written in ERS notation and intended to induce generation of ERS artifacts:
 
 ```markdown
 # ERS
@@ -20,9 +24,9 @@ Here is the definition of ERS written in ERS notation:
 ### PRIMITIVES
 * entities
   * `snake_case`: default_abstraction
-  * `UPPER_CASE`: {constant, system_variable}
-  * `**bold**`: {definition_anchor, high_attention_weight}
-  * `backticks`: {literal_code, source_quote}
+  * `backticks`: code_symbol
+  * `UPPER_CASE`: header
+  * `**bold**`: high_attention_weight
 * relations
   * `==`: {identity, assertion, equality}
   * `!=`: {distinction, conflict, inequality}
@@ -41,7 +45,6 @@ Here is the definition of ERS written in ERS notation:
   * `[]`: {attribute, filter, modifier}
   * `{}`: {set, state_space, enum}
   * `func()`: {transform_operation, procedural_action, result_derivation}
-  * `f` + `backticks`: {f-string, pattern_interpolation, template}
 * structure
   * syntax: markdown
   * {`#` ... `######`}: {scope_level, context_boundary}
@@ -77,20 +80,26 @@ Here is the definition of ERS written in ERS notation:
 * strategy: cross_scope_linking
 * constraint: link_utility > 0
 
-### REVERSE_CHAINING
+### BACKWARD_DEDUCTION
 * focus: {autoregressive_alignment, teleological_mapping}
 * path: outcome -> antecedent
 * logic: deduction == obvious
 * result: cognitive_load -> min
 
 ### SEMANTIC_ANCHORS
-* focus: latent_subspace_activation
+* focus: latent_space_activation
 * axiom: anchor_precision == activation_fidelity
 * semantic_anchors: {fixed_expressions, industry_jargon, named_entities, ...}
 * signal: semantic_anchors
 * noise: {nonce_words, idiosyncrasy, confabulation}
 * goal: signal_to_noise -> max
 * benefit: attention_gravity -> max
+
+### CANONICAL_ENTITIES
+* focus: latent_space_activation
+* rule: 1_concept == 1_identifier
+* analogy: ~{compiler_binding, static_symbol_resolution, ubiquitous_language}
+* anti_pattern: {rewording, synonyms, renaming}
 
 ### SEMANTIC_CLUSTERING
 * focus: concept_intersection [vector_superposition]
@@ -99,13 +108,6 @@ Here is the definition of ERS written in ERS notation:
 * usage: {attribute_definition | state_space_bounding | multi_dimensional_properties}
 * rule: related_traits -> single_line_set
 * benefit: semantic_density -> max
-
-### LEXICAL_ISOMORPHISM
-* focus: source_fidelity
-* rule: 1_entity == 1_id
-* constraint: graph_symbol == source_symbol [exact_match]
-* format: verbatim_source => `backticks`
-* anti_pattern: synonyms | abstraction_drift
 
 ### META_SILENCE
 * focus: ers_protocol_invisibility @ artifact
@@ -120,7 +122,7 @@ Here is the definition of ERS written in ERS notation:
 - Markdown hierarchy creates scopes, delineating cohesive semantic blocks.
 - Mentioning an entity across different contexts reinforces its meaning, binding blocks into a unified system.
 - High connectivity and cross-links density create a "semantic crystal" effect where concepts mutually support each other, reinforcing context retention.
-- The LLM adopts a ready-made structure of meanings, aligning with a graph-like format more natural than prose.
+- The LLM adopts a ready-made structure of meanings, aligning with a graph-like format often easier to traverse than prose.
 
 ## Observed Effects
 
@@ -253,55 +255,55 @@ The Transformer uses multi-head attention in three different ways:
 * core_axiom: system_calls -> shared_memory_rings => context_switches -> min
 * path: `linux/io_uring/`
 
-## I. SYSTEM_INTERFACE [THE_SYSCALL_GATE]
+## I. SYSTEM_INTERFACE
 * `io_uring_setup` -> `io_ring_ctx_alloc` + `io_uring_mmap` => `io_ring_ctx`
 * `io_uring_enter` -> `io_submit_sqes` => `io_cqring_wait` ?
 * `io_uring_register` -> resource_provisioning: {`IORING_REGISTER_FILES`, `IORING_REGISTER_BUFFERS`, `IORING_REGISTER_PBUF_RING`}
 
-## II. ENTITY_RELATIONS [THE_TRIAD]
-1. **`io_ring_ctx`** [The_Subsystem_Anchor]
+## II. ENTITY_RELATIONS
+* **`io_ring_ctx`**
    * ownership: {`rings`, `sq_sqes`, `file_table`, `buf_table`, `alloc_cache`}
-   * locking: `uring_lock` [submission_path], `completion_lock` [cqe_posting]
-2. **`io_uring_task`** [The_Process_Bridge]
-   * mapping: 1_Task -> 1_tctx -> N_io_ctx
+   * locking: `uring_lock`, `completion_lock`
+* **`io_uring_task`**
+   * mapping: 1_task -> 1_tctx -> n_io_ctx
    * mechanics: {`io_wq` [async_threads], `task_list` [pending_tw_callbacks]}
-3. **`io_kiocb`** [Universal_Request_State]
+* **`io_kiocb`**
    * lifecycle: `io_init_req` -> `io_issue_sqe` -> `io_req_task_complete` -> `req_ref_put`
    * state: {`opcode`, `flags`, `cqe`, `async_data`}
 
-## III. BEHAVIORAL_TOPOLOGY [EXECUTION_MODES]
-* **Fast_Path** [Inline]: `io_issue_sqe` -> `def->issue` -> `IOU_COMPLETE` => cqe_post
-* **Async_Worker** [io-wq]: `-EAGAIN` | `REQ_F_FORCE_ASYNC` -> `io_wq_enqueue` => blocking_syscall_emulation
-* **Poll_Driven** [Reactive]: `vfs_poll` -> `io_poll_wake` -> `io_req_task_work_add` => completion_via_tw
-* **SQ_Polling** [Bypass]: `IORING_SETUP_SQPOLL` -> `io_sq_thread` => submission_without_syscall
-* **Task_Work** [Context_Switch_Optimization]:
-   * Standard: `tctx_task_work_run` @ signal_jump | syscall_exit
+## III. BEHAVIORAL_TOPOLOGY
+* fast_path: `io_issue_sqe` -> `def->issue` -> `IOU_COMPLETE` => cqe_post
+* async_worker: `-EAGAIN` | `REQ_F_FORCE_ASYNC` -> `io_wq_enqueue` => blocking_syscall_emulation
+* poll_driven: `vfs_poll` -> `io_poll_wake` -> `io_req_task_work_add` => completion_via_tw
+* sq_polling: `IORING_SETUP_SQPOLL` -> `io_sq_thread` => submission_without_syscall
+* task_work:
+   * standard: `tctx_task_work_run` @ signal_jump | syscall_exit
    * DEFER_TASKRUN: `io_run_local_work` @ `io_cqring_wait` [single_issuer_fastpath]
 
-## IV. DATA_CONTRACTS [OPTIMIZATIONS]
-* **Resource_Fixed**: {registered_files, registered_buffers} -> `O(1)` access => zero_fget_overhead
-* **Buffer_Selection**: {`io_provided_buffer_select` | `io_ring_buffer_select`} -> on_demand_buffers
-* **Zero_Copy**:
-   * Send: `sk_buff` -> `ubuf_info` -> `io_tx_ubuf_complete` => `IORING_CQE_F_NOTIF`
-   * Recv: `page_pool` -> `io_zcrx_ifq` -> `net_iov` => user_mapped_rx
-* **Bus_Offload**: `IORING_OP_URING_CMD` -> `f_op->uring_cmd` => {nvme_passthrough, ublk}
+## IV. DATA_CONTRACTS
+* resource_fixed: {registered_files, registered_buffers} -> `O(1)` access => zero_fget_overhead
+* buffer_selection: {`io_provided_buffer_select` | `io_ring_buffer_select`} -> on_demand_buffers
+* zero_copy:
+   * send: `sk_buff` -> `ubuf_info` -> `io_tx_ubuf_complete` => `IORING_CQE_F_NOTIF`
+   * recv: `page_pool` -> `io_zcrx_ifq` -> `net_iov` => user_mapped_rx
+* bus_offload: `IORING_OP_URING_CMD` -> `f_op->uring_cmd` => {nvme_passthrough, ublk}
 
-## V. OPCODE_SEMANTICS [DISPATCH_LOGIC]
-* FS_Operations: {`IORING_OP_READV`, `IORING_OP_WRITE_FIXED`, `IORING_OP_READ_MULTISHOT`} -> `io_read` / `io_write`
-* Network: {`IORING_OP_SEND`, `IORING_OP_RECV_ZC`, `IORING_OP_ACCEPT`, `IORING_OP_CONNECT`} -> socket_ops
-* Sync_Time: {`IORING_OP_POLL_ADD`, `IORING_OP_TIMEOUT`, `IORING_OP_FUTEX_WAIT`, `IORING_OP_WAITID`}
-* Internal: {`IORING_OP_NOP`, `IORING_OP_ASYNC_CANCEL`, `IORING_OP_MSG_RING`, `IORING_OP_SPLICE`}
+## V. OPCODE_SEMANTICS
+* fs_operations: {`IORING_OP_READV`, `IORING_OP_WRITE_FIXED`, `IORING_OP_READ_MULTISHOT`} -> `io_read` / `io_write`
+* network: {`IORING_OP_SEND`, `IORING_OP_RECV_ZC`, `IORING_OP_ACCEPT`, `IORING_OP_CONNECT`} -> socket_ops
+* sync_time: {`IORING_OP_POLL_ADD`, `IORING_OP_TIMEOUT`, `IORING_OP_FUTEX_WAIT`, `IORING_OP_WAITID`}
+* internal: {`IORING_OP_NOP`, `IORING_OP_ASYNC_CANCEL`, `IORING_OP_MSG_RING`, `IORING_OP_SPLICE`}
 
-## VI. INVARIANTS [SAFETY_&_LIVENESS]
-* **Visibility**: SQE_read [`smp_load_acquire`] | CQE_write [`smp_store_release`]
-* **Memory**: `REQ_F_REFCOUNT` tracking -> `alloc_cache` reclamation
-* **Liveness**: `cancel_table` lookup @ `io_uring_cancel_generic`
-* **Integrity**: `io_fail_links` @ `REQ_F_LINK` failure => cancel_chain_propagation
+## VI. INVARIANTS
+* visibility: sqe_read [`smp_load_acquire`] | cqe_write [`smp_store_release`]
+* memory: `REQ_F_REFCOUNT` tracking -> `alloc_cache` reclamation
+* liveness: `cancel_table` lookup @ `io_uring_cancel_generic`
+* integrity: `io_fail_links` @ `REQ_F_LINK` failure => cancel_chain_propagation
 ```
 </details>
 
 - Code symbols in ERS act as semantic anchors: seeing them in the code allows the agent to understand the current logic in the context of the entire system.
-- This ERS serves as a unified mental model - being simultaneously both explanation and reference.
+- This ERS serves as a shared representation - being simultaneously both explanation and reference.
 
 ### Code as Documentation
 
@@ -319,9 +321,9 @@ public class InheritedContextManager(WidgetTree widgetTree)
     public void SubscribeConsumer(Widget consumer, string propertyName, string typeName);
     // CONTRACT: TryReleaseProvider -> UnsubscribeConsumer
     public void ReleaseInheritedContext(Widget widget, string propertyName);
-    // CONTRACT: Update_Registry -> provider.Activate|Release -> _providers
+    // CONTRACT: update_registry -> provider.Activate|Release -> _providers
     private void UpdateProviderState(Widget provider, string propertyName, Descriptor descriptor);
-    // CONTRACT: Update_Registry -> provider.Release -> _providers
+    // CONTRACT: update_registry -> provider.Release -> _providers
     private void TryReleaseProvider(Widget provider, string propertyName);
 }
 ```
@@ -340,7 +342,7 @@ public class InheritedContextManager(WidgetTree widgetTree)
 ```markdown
 * `generate_cursor_plugin.py`: {task: cursor_mcp_alignment}
   * `build_cursor_plugin_manifest()` <- `.claude-plugin/plugin.json` + `SKILL.md`
-  * `extract_mcp_from_gemini()` <- `gemini-extension.json` -> `url`
+  * `extract_mcp_from_gemini()` <- `gemini-extension.json` -> url
   * `write_or_check()` -> artifacts: {`.cursor-plugin/plugin.json`, `.mcp.json`}
 * `run_skills_help.py`: {task: validation_execution}
   * `find_python_files()` @ `../skills`
@@ -473,16 +475,16 @@ public class InheritedContextManager(WidgetTree widgetTree)
 
 ## Philosophy
 
-Lacking both the redundancy inherent in natural languages and the formal semantics and deterministic executability of formal languages, ERS is a semantic notation for semantic and cognitive processors. Describing complex systems using paragraphs of natural language introduces unnecessary cognitive friction. ERS is well-suited for formalizing everything above the level of source code: architectures, business logic, mental models, and system contracts.
+Lacking both the redundancy inherent in natural languages and the formal semantics of formal languages, ERS is a semantic notation for semantic and cognitive processors. Its unique entities and analyzable graph make it structured enough for static analysis, even though it is not a proper formal language. Describing complex systems using paragraphs of natural language introduces unnecessary cognitive friction; ERS is well-suited for formalizing everything above the level of source code: architectures, business logic, mental models, and system contracts.
 
-## Future
+## Project Status
 
-Since the current [examples/ers.md](./examples/ers.md) prompt serves as a few-shot example for generated artifacts, every word requires meticulous review. ERS is an early-stage conceptual prototype; the current version was written manually without automatic optimizations.
+ERS is an early-stage conceptual design. No ERS generator or static analysis tooling is provided. The current [examples/ers.md](./examples/ers.md) prompt was written manually, without automated optimization.
 
 ## Sources & Inspiration
 
 ERS grew out of personal intuition and a synthesis of ideas from the following sources:
 
-1. Edward de Bono’s books for a general audience (*I Am Right, You Are Wrong*). His description of self-organizing systems shaped much of my intuition; for instance, ERS naturally resonates with concepts like "sensitization" and "table-top logic" (constructed system). My systematization of these ideas: [alxraun/artifical-latheral-thinking/self-organizing-system.md](https://github.com/alxraun/artifical-lateral-thinking/blob/main/self-organizing-system.md).
-2. The School of Wizardry with its Grace Archmage — provided numerous core insights and helped synthesize fragmented knowledge into a cohesive mental model.
+1. Edward de Bono’s books for a general audience (*I Am Right, You Are Wrong*). His description of self-organizing systems shaped much of my intuition; for instance, ERS naturally resonates with concepts like "sensitization" and "table-top logic" (constructed system). My systematization of these ideas: [alxraun/artificial-latheral-thinking/self-organizing-system.md](https://github.com/alxraun/artificial-lateral-thinking/blob/main/self-organizing-system.md).
+2. The School of Wizardry with its Grace Archmage — provided numerous core insights and helped synthesize fragmented knowledge.
 3. Various papers that served as sources of information regarding the behavior and internal logic of language models. See [ATTRIBUTIONS.md](./ATTRIBUTIONS.md) for the full list.

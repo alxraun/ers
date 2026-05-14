@@ -11,31 +11,30 @@
 ### PRIMITIVES
 * entities
   * `snake_case`: default_abstraction
-  * `UPPER_CASE`: {constant, system_variable}
-  * `**bold**`: {definition_anchor, high_attention_weight}
-  * `backticks`: {literal_code, source_quote}
+  * `backticks`: code_symbol
+  * `UPPER_CASE`: header
+  * `**bold**`: high_attention_weight
 * relations
   * `==`: {identity, assertion, equality}
   * `!=`: {distinction, conflict, inequality}
   * `!`: {negation, logical_not}
-  * `<` | `>`: {comparison, magnitude, priority}
-  * `->`: {flow, transition, transformation}
+  * {`<` | `>`}: {comparison, magnitude, priority}
+  * {`->` | `<-`}: {flow, transition, transformation}
   * `=>`: {implication, consequence, if_then}
   * `+`: {composition, aggregation, mixin}
   * `|`: {alternative, union, choice}
   * `,`: {separator, list_item, and}
   * `:`: {definition, type_of, instance_of}
   * `~`: {analogy, similarity, reference}
-  * `...`: {range, sequence, enumeration}
+  * `...`: {range, enumeration, extrapolation}
   * `?`: {uncertainty, query, nullable, conditional}
-  * `@`: {context, location, decorator}
+  * `@`: {context, location}
   * `[]`: {attribute, filter, modifier}
   * `{}`: {set, state_space, enum}
   * `func()`: {transform_operation, procedural_action, result_derivation}
-  * `f` + `backticks`: {f-string, pattern_interpolation, template}
 * structure
   * syntax: markdown
-  * {`#` ... `######`} : {scope_level, context_boundary}
+  * {`#` ... `######`}: {scope_level, context_boundary}
   * `*`: {graph_unit, node_entry}
   * indent: {dependency, child_relationship}
 
@@ -62,13 +61,13 @@
 
 ### RELATIONAL_PRIMACY
 * focus: relational_connectivity
-* hierarchy: edges [relations] > nodes [entities]
+* hierarchy: relations > entities
 * action: static_list -> dynamic_flow
-* operator: {`->`, `=>`} -> max_usage
+* relations: {`->`, `=>`, ...} -> max_usage
 * strategy: cross_scope_linking
 * constraint: link_utility > 0
 
-### REVERSE_CHAINING
+### BACKWARD_DEDUCTION
 * focus: {autoregressive_alignment, teleological_mapping}
 * path: outcome -> antecedent
 * logic: deduction == obvious
@@ -83,6 +82,12 @@
 * goal: signal_to_noise -> max
 * benefit: attention_gravity -> max
 
+### CANONICAL_ENTITIES
+* focus: latent_subspace_activation
+* rule: 1_concept == 1_identifier
+* analogy: ~{compiler_binding, static_symbol_resolution, ubiquitous_language}
+* anti_pattern: {rewording, synonyms, renaming}
+
 ### SEMANTIC_CLUSTERING
 * focus: concept_intersection [vector_superposition]
 * logic: precise_meaning == average({token_1, token_2, token_n})
@@ -90,13 +95,6 @@
 * usage: {attribute_definition | state_space_bounding | multi_dimensional_properties}
 * rule: related_traits -> single_line_set
 * benefit: semantic_density -> max
-
-### LEXICAL_ISOMORPHISM
-* focus: source_fidelity
-* rule: 1_entity == 1_id
-* constraint: graph_symbol == source_symbol [exact_match]
-* format: verbatim_source => `backticks`
-* anti_pattern: synonyms | abstraction_drift
 
 ### META_SILENCE
 * focus: ers_protocol_invisibility @ artifact

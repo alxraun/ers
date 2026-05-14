@@ -56,7 +56,7 @@
 ### SYMBOLIC_FIDELITY
 * focus: strict_source_isomorphism
 * rule: node_id == verbatim_code_symbol [exact_match]
-* format: all_code_entities => `backticks`
+* format: all_code_entities => backticks
 * invariant: zero_hallucination_naming
 
 ### FORMAT_AGNOSTICISM
