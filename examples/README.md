@@ -27,7 +27,8 @@ Can be used to create ERS artifacts.
 | :--- | :--- |
 | [context-engineering.md](./context-engineering.md) | Context Engineering knowledge overview. |
 | [claudecode.md](./claudecode.md) | Claude Code overview, based on official documentation. |
-| [nanochat.md](./nanochat.md) | Nanochat architecture overview. |
+| [nanochat.md](./nanochat.md) | [karpathy/nanochat](https://github.com/karpathy/nanochat) overview. |
+| [wikigen.md](./wikigen.md) | [JazzPiece/wikigen](https://github.com/JazzPiece/wikigen) overview |
 | [design-patterns.md](./design-patterns.md) | A Cheat Sheet for brainstorming with LLM |
 
 ## SKILLS

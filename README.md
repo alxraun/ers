@@ -481,6 +481,10 @@ Lacking both the redundancy inherent in natural languages and the formal semanti
 
 ERS is an early-stage conceptual design. No ERS generator or static analysis tooling is provided. The current [examples/ers.md](./examples/ers.md) prompt was written manually, without automated optimization.
 
+## Acknowledgments
+
+**Google AI Studio**: The primary environment used for research, design, and refining concepts that made ERS possible.
+
 ## Sources & Inspiration
 
 ERS grew out of personal intuition and a synthesis of ideas from the following sources:
