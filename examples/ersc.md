@@ -1,43 +1,47 @@
 # ERSC
-* name: ers_contract
-* nature: semantic_graph
-* extends: `ERS`
-* role: source_of_truth
+* name: ers_code
+* extends: ers
 * goal: cognitive_replacement == reading_code -> traversing_graph
 
 ## DEFINITIONS
+* abstraction_level
 
 ### SIGNAL
-* focus: the_contract_layer
+* focus: {observable, intent, contracts, ...}
   * filter: include
-  * definition: {client_observable_change, set_of_all_observable_guarantees}
-  * logic: system_knowledge == contracts
-  * taxonomy_of_contracts:
-    * structural_contracts: {api_signatures, type_definitions, interfaces, inheritance, generics}
-    * behavioral_contracts: {lifecycle_flows, state_transitions, event_reactions, call_chains_to_external}
-    * semantic_contracts: {pre_conditions, post_conditions, invariants, side_effects, data_guarantees}
+  * covers:
+    * {api_signatures, type_definitions, interfaces, inheritance, generics, ...}
+    * {lifecycle_flows, state_transitions, event_reactions, call_chains, ...}
+    * {pre_conditions, post_conditions, invariants, side_effects, data_guarantees, ...}
 
 ### NOISE
-* focus: the_execution_layer
+* focus: {execution, implementation, ...}
   * filter: exclude
-  * definition: {client_invisible_change, internal_mechanics_to_fulfill_contracts}
-  * logic: implementation_details == semantic_noise
-  * taxonomy_of_noise:
-    * procedural_noise: {algorithms, loops, math_operations, step_by_step_instructions}
-    * state_noise: {temp_vars, internal_counters, hidden_buffers, loop_indices}
-    * syntax_noise: {boilerplate, syntax_sugar, language_overhead, debug_traces}
+  * covers:
+    * {algorithms, loops, math_operations, step_by_step_instructions, ...}
+    * {temp_vars, internal_counters, hidden_buffers, loop_indices, ...}
+    * {boilerplate, syntax_sugar, language_overhead, debug_traces, ...}
 
-## HEURISTICS
-* inherits: ers_heuristics
+## PRINCIPLES
+* inherits: ers.principles
+* nature: {heuristics, operational, situational}
 
-### SIGNAL_TO_NOISE
-* focus: artifact_content
-* action: filter
-* include: SIGNAL
-* exclude: NOISE
+### SIGNAL_EXTRACTION
+* anchors: signal_to_noise
+* gist: {ersc, code} -> {signal, intent} != {noise, implementation}
 
-### SYMBOLIC_FIDELITY
-* focus: source_isomorphism
-* invariant: code_symbol => {verbatim, exact}
-* format: code_symbol => backticks
-* benefit: zero_hallucination
+### SOURCE_ANCHORING
+* anchors: symbolic_fidelity
+* gist: entity == {code_symbol @ codebase} => {`backticks`, verbatim, exact}
+* benefit: {zero_hallucination, traceability}
+* anti_pattern: paraphrase
+
+### SYMBOLIC_COMPRESSION
+* anchors: abstraction_scale
+* gist: snake_case == group_compression
+* constraint: snake_case -> decompose(`backticks`) @ zoom_in
+
+### FLOW_PRIMACY
+* gist: behavioral_flow > static_structure @ information_utility
+* logic: {flow -> reconstruct(structure) => low_entropy} != {structure -> reconstruct(flow) => high_entropy}
+* compression: flow => {critical_path + system_intent == 100%}

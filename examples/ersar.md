@@ -1,8 +1,7 @@
 # ERSAR
 * name: ers_api_reference
-* nature: semantic_graph
 * analogue: {`.pyi`, `.d.ts`, ref_assembly}
-* extends: `ERS` [protocol]
+* extends: ers
 * role: structural_scaffolding
 * usage: {syntax_anchor, hallucination_suppression, vocabulary_bounding}
 * goal -> entropy_collapse [probabilistic_guessing -> deterministic_matching]
@@ -51,7 +50,7 @@
 * targets: ecosystems_lacking_tooling {obscure_configs, prosaic_docs, scattered_markdown, CLI_manpages}
 * property: flexibility_over_rigid_syntax
 
-## HEURISTICS
+## PRINCIPLES
 
 ### SYMBOLIC_FIDELITY
 * focus: strict_source_isomorphism
