@@ -481,7 +481,7 @@ public class InheritedContextManager(WidgetTree widgetTree)
 
 ## Philosophy
 
-Lacking both the redundancy inherent in natural languages and the formal semantics of formal languages, ERS is a semantic notation for semantic and cognitive processors. Its unique entities and analyzable graph make it structured enough for static analysis, even though it is not a proper formal language. Describing complex systems using paragraphs of natural language introduces unnecessary cognitive friction; ERS is well-suited for formalizing everything above the level of source code: architectures, business logic, mental models, and system contracts.
+Lacking both the redundancy inherent in natural languages and the formal semantics of formal languages, its unique entities and analyzable graph make it structured enough for static analysis, even though it is not a proper formal language. Describing complex systems using paragraphs of natural language introduces unnecessary cognitive friction; ERS is well-suited for formalizing everything above the level of source code: architectures, business logic, mental models, and system contracts.
 
 ## Project Status
 
