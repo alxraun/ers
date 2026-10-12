@@ -130,11 +130,6 @@ Here is a prompt for LLMs, written in ERS notation and intended to induce genera
 - High connectivity and cross-link density create a "semantic crystal" effect where concepts mutually support each other.
 - The LLM adopts a ready-made structure of meanings, aligning with a graph-like format.
 
-## Observed Effects
-
-- Using ERS puts the model into a "code-execution" mode: the structure acts as a firm contract, binding the model to both its letter and spirit.
-- Representing knowledge as discrete `snake_case` blocks with explicit links helps the model more effectively align different pieces of information, uncovering hidden logic and insights often lost in the volume of normal text.
-
 ## Use Cases
 
 ### NL to ERS
